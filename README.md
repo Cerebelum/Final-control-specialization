@@ -73,3 +73,4 @@
 
 Реализовано в проекте [HumansFriends](https://github.com/Cerebelum/Final-control-specialization/tree/main/HumanFriends/src).
 Точка входа в AnimalRegistry.java
+У меня глючит VS Code, запускается со второго раза.
