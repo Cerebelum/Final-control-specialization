@@ -6,6 +6,11 @@ import java.util.Scanner;
 public class AnimalRegistry {
     List<Animal> animals = new ArrayList<>();
     Scanner scanner = new Scanner(System.in, "cp866");
+    private AnimalCounter counter;
+
+    public AnimalRegistry() {
+        counter = new AnimalCounter();
+    }
 
     public void addAnimal() {
         System.out.print("Введите тип животного (DOG, CAT, HAMSTER, HORSE, CAMEL, DONKEY): ");
@@ -25,11 +30,39 @@ public class AnimalRegistry {
         System.out.print("Введите дату рождения животного (гггг-мм-дд): ");
         LocalDate birthDate = LocalDate.parse(scanner.nextLine());
 
-        Animal animal = createAnimal(animalType, name, birthDate);
-        if (animal != null) {
-            animals.add(animal);
-            System.out.println("Животное добавлено в реестр.");
+        try (AnimalCounter ignored = new AnimalCounter()) {
+            Animal animal = createAnimal(animalType, name, birthDate);
+            if (animal != null) {
+                if (isValidAnimal(animal)) {
+                    animals.add(animal);
+                    counter.add();
+                    System.out.println("Животное добавлено в реестр.");
+                    System.out.println("Общее количество животных: " + counter.getCount());
+                } else {
+                    System.out.println("Некоторые поля не заполнены. Животное не добавлено в реестр.");
+                }
+            } else {
+                System.out.println("Неверный тип животного.");
+            }
+        } catch (Exception e) {
+            System.out.println("Ошибка при работе со счетчиком животных: " + e.getMessage());
         }
+    }
+
+    private boolean isValidAnimal(Animal animal) {
+        if (animal.name == null) {
+            return false;
+        }
+        
+        if (animal.name.isEmpty()) {
+            return false;
+        }
+        
+        if (animal.birthDate == null) {
+            return false;
+        }
+        
+        return true;
     }
 
     private Animal createAnimal(AnimalType type, String name, LocalDate birthDate) {
