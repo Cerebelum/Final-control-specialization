@@ -113,7 +113,7 @@ public class AnimalRegistry {
             System.out.print("Введите новую команду: ");
             String command = scanner.nextLine();
             animal.commands.add(command);
-            System.out.println("Команда добавлена для " + animal.name + ".");
+            System.out.println("Команда добавлена");
         } else {
             System.out.println("Животное не найдено.");
         }
