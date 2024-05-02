@@ -50,7 +50,15 @@ public class AnimalRegistry {
     }
 
     private boolean isValidAnimal(Animal animal) {
-        return animal.name != null && !animal.name.isEmpty() && animal.birthDate != null;
+        if (animal.name == null || animal.name.equals("")) {
+            return false;
+        }
+    
+        if (animal.birthDate == null) {
+            return false;
+        }
+    
+        return true;
     }
 
     private Animal createAnimal(AnimalType type, String name, LocalDate birthDate) {
