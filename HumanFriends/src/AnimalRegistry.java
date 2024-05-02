@@ -88,7 +88,7 @@ public class AnimalRegistry {
         if (animal != null) {
             System.out.println("Команды для " + animal.name + ":");
             for (String command : animal.commands) {
-                System.out.println("- " + command);
+                System.out.println(command);
             }
         } else {
             System.out.println("Животное не найдено.");
