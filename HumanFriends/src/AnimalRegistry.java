@@ -121,9 +121,21 @@ public class AnimalRegistry {
 
     public void listByBirthDate() {
         System.out.println("Животные, отсортированные по дате рождения:");
-        animals.sort((a1, a2) -> a1.birthDate.compareTo(a2.birthDate));
-        for (Animal animal : animals) {
-            System.out.println("- " + animal.name + " (" + animal.getClass().getSimpleName() + "), дата рождения: " + animal.birthDate);
+        List<Animal> sortedAnimals = new ArrayList<>(animals);
+    
+        for (int i = 0; i < sortedAnimals.size() - 1; i++) {
+            for (int j = 0; j < sortedAnimals.size() - i - 1; j++) {
+                if (sortedAnimals.get(j).birthDate.isAfter(sortedAnimals.get(j + 1).birthDate)) {
+                    Animal temp = sortedAnimals.get(j);
+                    sortedAnimals.set(j, sortedAnimals.get(j + 1));
+                    sortedAnimals.set(j + 1, temp);
+                }
+            }
+        }
+    
+        for (Animal animal : sortedAnimals) {
+            String animalType = animal.getClass().getSimpleName();
+            System.out.println("- " + animal.name + " (" + animalType + "), дата рождения: " + animal.birthDate);
         }
     }
 
