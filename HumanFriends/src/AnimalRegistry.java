@@ -139,7 +139,7 @@ public class AnimalRegistry {
         }
     }
 
-    public void displayMenu() {
+    public void menu() {
         boolean quit = false;
         while (!quit) {
             System.out.println("\nМеню реестра животных:");
@@ -176,6 +176,6 @@ public class AnimalRegistry {
     }
     public static void main(String[] args) {
         AnimalRegistry registry = new AnimalRegistry();
-        registry.displayMenu();
+        registry.menu();
     }
 }
