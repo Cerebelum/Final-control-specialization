@@ -13,21 +13,21 @@ public class AnimalRegistry {
     }
 
     public void addAnimal() {
-        System.out.print("Введите тип животного (DOG, CAT, HAMSTER, HORSE, CAMEL, DONKEY): ");
+        System.out.print("Введите тип животного из списка (DOG, CAT, HAMSTER, HORSE, CAMEL, DONKEY): ");
         String type = scanner.nextLine().toUpperCase();
 
         AnimalType animalType;
         try {
             animalType = AnimalType.valueOf(type);
         } catch (IllegalArgumentException e) {
-            System.out.println("Неверный тип животного.");
+            System.out.println("Вы ввели неправильный тип животного.");
             return;
         }
 
         System.out.print("Введите имя животного: ");
         String name = scanner.nextLine();
 
-        System.out.print("Введите дату рождения животного (гггг-мм-дд): ");
+        System.out.print("Введите дату рождения животного в формате (гггг-мм-дд): ");
         LocalDate birthDate = LocalDate.parse(scanner.nextLine());
 
         try (AnimalCounter ignored = new AnimalCounter()) {
@@ -42,7 +42,7 @@ public class AnimalRegistry {
                     System.out.println("Некоторые поля не заполнены. Животное не добавлено в реестр.");
                 }
             } else {
-                System.out.println("Неверный тип животного.");
+                System.out.println("Вы ввели неправильный тип животного. Попробуйте еще раз.");
             }
         } catch (Exception e) {
             System.out.println("Ошибка при работе со счетчиком животных: " + e.getMessage());
@@ -86,12 +86,12 @@ public class AnimalRegistry {
 
         Animal animal = findAnimalByName(name);
         if (animal != null) {
-            System.out.println("Команды для " + animal.name + ":");
+            System.out.println("Перечень команд для " + animal.name + ":");
             for (String command : animal.commands) {
                 System.out.println(command);
             }
         } else {
-            System.out.println("Животное не найдено.");
+            System.out.println("Животное с таким именем не найдено.");
         }
     }
 
@@ -110,17 +110,17 @@ public class AnimalRegistry {
 
         Animal animal = findAnimalByName(name);
         if (animal != null) {
-            System.out.print("Введите новую команду: ");
+            System.out.print("Введите команду: ");
             String command = scanner.nextLine();
             animal.commands.add(command);
             System.out.println("Команда добавлена");
         } else {
-            System.out.println("Животное не найдено.");
+            System.out.println("Животное с таким именем не найдено.");
         }
     }
 
     public void listByBirthDate() {
-        System.out.println("Животные, отсортированные по дате рождения:");
+        System.out.println("Список животных, отсортированный по дате рождения:");
         List<Animal> sortedAnimals = new ArrayList<>(animals);
     
         for (int i = 0; i < sortedAnimals.size() - 1; i++) {
@@ -135,7 +135,7 @@ public class AnimalRegistry {
     
         for (Animal animal : sortedAnimals) {
             String animalType = animal.getClass().getSimpleName();
-            System.out.println("- " + animal.name + " (" + animalType + "), дата рождения: " + animal.birthDate);
+            System.out.println(animal.name + " (" + animalType + "), дата рождения: " + animal.birthDate);
         }
     }
 
@@ -148,7 +148,7 @@ public class AnimalRegistry {
             System.out.println("3. Обучить животное новой команде");
             System.out.println("4. Вывести список животных по дате рождения");
             System.out.println("0. Выход");
-            System.out.print("Выберите действие: ");
+            System.out.print("Введите номе действия: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -170,7 +170,7 @@ public class AnimalRegistry {
                     quit = true;
                     break;
                 default:
-                    System.out.println("Неверный выбор. Попробуйте еще раз.");
+                    System.out.println("Ошибка. Попробуйте еще раз.");
             }
         }
     }
