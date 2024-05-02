@@ -6,11 +6,7 @@ import java.util.Scanner;
 public class AnimalRegistry {
     List<Animal> animals = new ArrayList<>();
     Scanner scanner = new Scanner(System.in, "cp866");
-    private AnimalCounter counter;
-
-    public AnimalRegistry() {
-        counter = new AnimalCounter();
-    }
+    private static AnimalCounter counter;
 
     public void addAnimal() {
         System.out.print("Введите тип животного из списка (DOG, CAT, HAMSTER, HORSE, CAMEL, DONKEY): ");
@@ -179,6 +175,7 @@ public class AnimalRegistry {
     }
     public static void main(String[] args) {
         AnimalRegistry registry = new AnimalRegistry();
+        counter = new AnimalCounter();
         registry.menu();
     }
 }
