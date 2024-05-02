@@ -123,16 +123,19 @@ public class AnimalRegistry {
         System.out.println("Список животных, отсортированный по дате рождения:");
         List<Animal> sortedAnimals = new ArrayList<>(animals);
     
-        for (int i = 0; i < sortedAnimals.size() - 1; i++) {
-            for (int j = 0; j < sortedAnimals.size() - i - 1; j++) {
-                if (sortedAnimals.get(j).birthDate.isAfter(sortedAnimals.get(j + 1).birthDate)) {
-                    Animal temp = sortedAnimals.get(j);
-                    sortedAnimals.set(j, sortedAnimals.get(j + 1));
-                    sortedAnimals.set(j + 1, temp);
+        int listSize = sortedAnimals.size();
+        for (int i = 0; i < listSize - 1; i++) {
+            for (int j = 0; j < listSize - i - 1; j++) {
+                Animal currentAnimal = sortedAnimals.get(j);
+                Animal nextAnimal = sortedAnimals.get(j + 1);
+        
+                if (currentAnimal.birthDate.isAfter(nextAnimal.birthDate)) {
+                    sortedAnimals.set(j, nextAnimal);
+                    sortedAnimals.set(j + 1, currentAnimal);
                 }
             }
         }
-    
+
         for (Animal animal : sortedAnimals) {
             String animalType = animal.getClass().getSimpleName();
             System.out.println(animal.name + " (" + animalType + "), дата рождения: " + animal.birthDate);
@@ -146,7 +149,7 @@ public class AnimalRegistry {
             System.out.println("1. Добавить новое животное");
             System.out.println("2. Вывести список команд животного");
             System.out.println("3. Обучить животное новой команде");
-            System.out.println("4. Вывести список животных по дате рождения");
+            System.out.println("4. Вывести список животных, отсортированный по дате рождения");
             System.out.println("0. Выход");
             System.out.print("Введите номе действия: ");
 
